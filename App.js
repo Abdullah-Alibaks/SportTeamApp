@@ -84,7 +84,7 @@ const App = () => {
             <Text>{item.rugnummer}</Text>
           </View>
           <Button 
-            style={{ borderRadius: 20, backgroundColor:"red"}}
+            style={{ borderRadius: 20, color:"red", marginRight:10}}
             title="Delete"
             onPress={() => deletePlayer(index)}>
           </Button>
