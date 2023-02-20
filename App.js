@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, TouchableOpacity, StyleSheet, Text, Image, Button, View, TextInput } from 'react-native';
+import { FlatList, TouchableOpacity, StyleSheet, Text, Image, Button, View, TextInput, ActivityIndicator } from 'react-native';
 import { launchCamera } from 'react-native-image-picker';
 
 const App = () => {
@@ -16,6 +16,12 @@ const App = () => {
     setFoto(null);
     setPosition('');
     setRugnummer('');
+  };
+
+  const deletePlayer = (index) => {
+    const newPlayers = [...players];
+    newPlayers.splice(index, 1);
+    setPlayers(newPlayers);
   };
 
    camlaunch = () => {
@@ -61,13 +67,14 @@ const App = () => {
       <FlatList
       keyExtractor={item => item.name}
       data={players}
-      renderItem={({item}) => (
+      renderItem={({item, index}) => (
         <View style={styles.playerContainer}>
           <View>
           {foto && (
           <Image
               source={{  uri:foto.assets[0].uri }}
               style={{width:70, height:80,borderRadius:30, borderColor: "black", borderWidth:2 }}
+              PlaceholderContent={<ActivityIndicator />}
             />
           )}
           </View>
@@ -76,7 +83,11 @@ const App = () => {
             <Text>{item.position}</Text>
             <Text>{item.rugnummer}</Text>
           </View>
-          
+          <Button 
+            style={{ borderRadius: 20, backgroundColor:"red"}}
+            title="Delete"
+            onPress={() => deletePlayer(index)}>
+          </Button>
           <Button
             style={{borderRadius:20}}
             title="Take Picture"
